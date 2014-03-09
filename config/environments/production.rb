@@ -4,6 +4,16 @@ Omrails::Application.configure do
   # Devise mail configuration 
   config.action_mailer.default_url_options = { :host => 'http://warm-sierra-7396.herokuapp.com/' }
 
+  # Paperclip should use Amazon S3 in Heroku
+  config.paperclip_defaults = {
+    :storage => :s3
+    :s3_credentials => {
+      :bucket => ENV['AWS_BUCKET'],
+      :acces_key_id => ['AWS_ACCES_KEY_ID'],
+      :secret_acces_key => ENV['AWS_SECRET_ACCES_KEY']
+    }
+  }
+
   # Code is not reloaded between requests
   config.cache_classes = true
 
